@@ -45,7 +45,7 @@ install_prerequisites(){
     echo "update system and install Prerequisites"
     echo "$number_sign"
     apt update
-    apt upgrade -y
+    apt upgrade
     apt install sudo ca-certificates curl gnupg lsb-release
     echo "$underline"
 }
@@ -56,7 +56,9 @@ SetUpREpository(){
     echo "$number_sign"
     sudo mkdir -p /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     echo "$underline"
 }
 
@@ -65,6 +67,7 @@ InstallDockerEngine(){
     echo "Install Docker Engine"
     echo "$number_sign"
     sudo apt-get update
+    sudo apt upgrade
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
     apt --fix-broken install
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
@@ -88,6 +91,8 @@ ManageDockerAsANonRootUser(){
     echo "$plus"
     sudo groupadd docker
     sudo usermod -aG docker $USER
+    sudo -u sysadmin sh -c "$(newgrp docker & exit)"
+    sudo -u sysadmin docker run hello-world
     echo "$number_sign"
 }
 
