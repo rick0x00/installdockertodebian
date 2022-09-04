@@ -28,12 +28,16 @@ cd ~
 
 uninstall_old_docker(){
     echo "$underline"
-    if [ "$?" -eq "1" ]; then
+    apt list --installed | grep "docker"
+    if [ "$?" -eq "0" ]; then
+        echo "$plus"
         echo "Uninstall Old Docker"
         echo "$number_sign"
         apt remove docker docker-engine docker.io containerd runc
         if [ "$?" -eq "1" ]; then
-            echo "Docker is Already Installed and Not Uninstall"
+            echo "$plus"
+            echo "docker is currently installed but will not be uninstalled"
+            echo "$plus"
             exit 1;
         fi
     fi
