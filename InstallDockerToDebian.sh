@@ -49,7 +49,6 @@ install_prerequisites(){
     echo "update system and install Prerequisites"
     echo "$number_sign"
     apt update
-    apt upgrade
     apt install sudo ca-certificates curl gnupg lsb-release
     echo "$underline"
 }
