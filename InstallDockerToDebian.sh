@@ -70,7 +70,6 @@ InstallDockerEngine(){
     echo "Install Docker Engine"
     echo "$number_sign"
     sudo apt-get update
-    sudo apt upgrade
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
     apt --fix-broken install
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
