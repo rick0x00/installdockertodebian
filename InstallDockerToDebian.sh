@@ -91,8 +91,8 @@ ManageDockerAsANonRootUser(){
     echo "$plus"
     sudo groupadd docker
     sudo usermod -aG docker $USER
-    sudo -u sysadmin sh -c "$(newgrp docker & exit)"
-    sudo -u sysadmin docker run hello-world
+    sudo -u $USER sh -c "$(newgrp docker & exit)"
+    sudo -u $USER docker run hello-world
     echo "$number_sign"
 }
 
